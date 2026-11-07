@@ -40,8 +40,8 @@
 [data-theme="light"] {
   /* RGB triplets for Tailwind in Light Mode (Warm Alabaster & Cream) */
   --color-obsidian-rgb: 250 247 242;       /* Alabaster Warm White Canvas */
-  --color-charcoal-rgb: 243 238 228;       /* Warm Inset Card Surface (#F3EEE4, distinct from pure white) */
-  --color-surface-rgb: 236 230 218;        /* Soft elevated box */
+  --color-charcoal-rgb: 255 255 255;       /* Warm Inset Card Surface (#F3EEE4, distinct from pure white) */
+  --color-surface-rgb: 240 240 240;        /* Soft elevated box */
   --color-ivory-rgb: 23 23 23;             /* Deep readable obsidian text */
   --color-champagne-rgb: 158 122 61;       /* Deep rich bronze gold with high contrast */
   --color-stone-rgb: 102 96 86;            /* Crisp dark stone grey (4.5:1+ contrast) */
@@ -49,8 +49,8 @@
   --color-burgundy-rgb: 155 40 58;         /* Deep crimson burgundy */
 
   --color-obsidian: #FAF7F2;
-  --color-charcoal: #F3EEE4;
-  --color-surface-elevated: #ECE6DA;
+  --color-charcoal: #FFFFFF;
+  --color-surface-elevated: #F0F0F0;
   --color-ivory: #171717;
   --color-ivory-light: #1A1A1A;
   --color-champagne: #9E7A3D;
@@ -65,11 +65,11 @@
   --border-gold-hover: rgba(158, 122, 61, 0.65);
   --card-bg: #FFFFFF;
   --card-solid: #FFFFFF;
-  --card-subtle: #F7F4EE;
-  --input-bg: #FAF7F2;
+  --card-subtle: #F5F5F5;
+  --input-bg: #FFFFFF;
   --progress-track: rgba(102, 96, 86, 0.18);
   --modal-backdrop: rgba(23, 23, 23, 0.55);
-  --sub-bar-bg: #EFE9DE;
+  --sub-bar-bg: #F5F5F5;
 }
 
 * {

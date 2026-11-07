@@ -786,7 +786,7 @@ Would you like to explore investment simulations, review specific accounts, or s
       suggestedNavigationRoute: navRoute,
       suggestedActionLabel: navLabel,
       followUpSuggestions: followUps,
-      modelUsed: 'gemini-2.5-flash-lite (vault-assistant)',
+      modelUsed: 'vault-simulation-engine',
       timestamp: new Date().toISOString(),
     };
     return aiRes as unknown as T;

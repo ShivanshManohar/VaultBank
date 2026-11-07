@@ -77,7 +77,7 @@ public class VaultAiService
         {
             try
             {
-                string geminiReply = await CallGeminiAsync(apiKey, modelName, request.Prompt, sanitizedContextJson, request.ActiveRoute);
+                string geminiReply = await CallGeminiAsync(apiKey, modelName, request.Prompt, sanitizedContextJson, request.ActiveRoute, request.History);
                 if (!string.IsNullOrWhiteSpace(geminiReply))
                 {
                     return new AiChatResponse
@@ -106,12 +106,12 @@ public class VaultAiService
             SuggestedNavigationRoute = navRoute,
             SuggestedActionLabel = navLabel,
             FollowUpSuggestions = GenerateFollowUps(request.Prompt, overview),
-            ModelUsed = "gemini-2.5-flash-lite (offline fallback)",
+            ModelUsed = "vault-intelligence-engine (offline)",
             Timestamp = DateTime.UtcNow
         };
     }
 
-    private async Task<string> CallGeminiAsync(string apiKey, string model, string prompt, string contextJson, string route)
+    private async Task<string> CallGeminiAsync(string apiKey, string model, string prompt, string contextJson, string route, List<ConversationTurn> history)
     {
         string endpoint = $"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={apiKey}";
 
@@ -120,25 +120,73 @@ public class VaultAiService
             "Brand personality: Understated luxury, precise, intelligent, trustworthy, concise. " +
             "Strict Guidelines:\n" +
             "1. You have read-only access to the customer's authenticated portfolio context provided below.\n" +
-            "2. Never invent balances, maturity amounts, or interest figures. Use the provided context.\n" +
-            "3. You CANNOT execute financial transactions (deposits, withdrawals, opening/breaking FDs). Direct user to confirmed UI workflows.\n" +
+            "2. Never invent balances, maturity amounts, or interest figures. Use ONLY the provided context.\n" +
+            "3. You CANNOT execute financial transactions (deposits, withdrawals, opening/breaking FDs). Direct user to the UI.\n" +
             "4. Never output passwords, auth tokens, or private details.\n" +
-            $"Current Page Context: {route}\n" +
-            $"Authenticated Portfolio Context (JSON): {contextJson}";
+            "5. Keep responses concise — 3 to 6 sentences unless a detailed breakdown is explicitly requested.\n" +
+            $"Current Page: {route}\n" +
+            $"Portfolio Context (JSON): {contextJson}";
+
+        // Build multi-turn contents array: system context in first user turn, then alternating history, then current query
+        var contents = new List<object>();
+
+        // First turn always contains system context + first query OR just system context if there's history
+        if (history == null || history.Count == 0)
+        {
+            // Single turn: system + current query
+            contents.Add(new
+            {
+                role = "user",
+                parts = new[] { new { text = $"{systemInstruction}\n\nCustomer Query: {prompt}" } }
+            });
+        }
+        else
+        {
+            // Multi-turn: embed system in first user message of history, then alternate, then current
+            bool systemEmbedded = false;
+            foreach (var turn in history)
+            {
+                if (!systemEmbedded && turn.Role == "user")
+                {
+                    contents.Add(new
+                    {
+                        role = "user",
+                        parts = new[] { new { text = $"{systemInstruction}\n\nCustomer Query: {turn.Content}" } }
+                    });
+                    systemEmbedded = true;
+                }
+                else
+                {
+                    contents.Add(new
+                    {
+                        role = turn.Role == "model" ? "model" : "user",
+                        parts = new[] { new { text = turn.Content } }
+                    });
+                }
+            }
+            // If history started with model (shouldn't happen but guard):
+            if (!systemEmbedded)
+            {
+                contents.Insert(0, new
+                {
+                    role = "user",
+                    parts = new[] { new { text = $"{systemInstruction}\n\nCustomer Query: {prompt}" } }
+                });
+            }
+            else
+            {
+                // Append current query as final user turn
+                contents.Add(new
+                {
+                    role = "user",
+                    parts = new[] { new { text = prompt } }
+                });
+            }
+        }
 
         var payload = new
         {
-            contents = new[]
-            {
-                new
-                {
-                    role = "user",
-                    parts = new[]
-                    {
-                        new { text = $"{systemInstruction}\n\nCustomer Query: {prompt}" }
-                    }
-                }
-            },
+            contents,
             generationConfig = new
             {
                 temperature = 0.2,
@@ -236,12 +284,75 @@ public class VaultAiService
 
     private static List<string> GenerateFollowUps(string prompt, FinancialOverviewResponse overview)
     {
-        return new List<string>
+        string lower = prompt.ToLowerInvariant();
+
+        if (lower.Contains("interest") || lower.Contains("earn") || lower.Contains("compound"))
+            return new List<string>
+            {
+                "Which of my fixed deposits matures first?",
+                "How does quarterly compounding compare with annual?",
+                "Show me the FD ladder strategy",
+                "What is my projected total payout?"
+            };
+
+        if (lower.Contains("mature") || lower.Contains("maturity") || lower.Contains("payout"))
+            return new List<string>
+            {
+                "Can I add this date to my Google Calendar?",
+                "What penalty applies if I break an FD early?",
+                "How much interest will I earn in total?",
+                "Simulate a new 3-year fixed deposit"
+            };
+
+        if (lower.Contains("goal") || lower.Contains("earmark") || lower.Contains("emergency"))
+            return new List<string>
+            {
+                "How much is unallocated in my savings accounts?",
+                "How do I create a new savings goal?",
+                "What is my total net worth?",
+                "Open FD portfolio"
+            };
+
+        if (lower.Contains("ladder") || lower.Contains("laddering"))
+            return new List<string>
+            {
+                "Simulate ₹1,00,000 across 4 tranches",
+                "What rates does VaultBank offer?",
+                "Which FD matures first?",
+                "Open the Ladder Builder"
+            };
+
+        if (lower.Contains("penalty") || lower.Contains("premature") || lower.Contains("break") || lower.Contains("early"))
+            return new List<string>
+            {
+                "Show my FD portfolio",
+                "What is my projected maturity payout?",
+                "How does interest accrual work?",
+                "Simulate a replacement deposit"
+            };
+
+        if (lower.Contains("spending") || lower.Contains("pulse") || lower.Contains("savings rate"))
+            return new List<string>
+            {
+                "How much is unallocated right now?",
+                "Open Fixed Deposits Portfolio",
+                "What is my savings rate this month?",
+                "Show my wealth journal"
+            };
+
+        // Default follow-ups adapted to portfolio state
+        var followUps = new List<string>
         {
             "Which of my fixed deposits matures first?",
-            "How does quarterly compounding compare with annual?",
-            "How much is unallocated in my savings accounts?",
-            "Explain the FD laddering strategy"
+            "How does quarterly compounding work?",
         };
+
+        if (overview.ActiveGoalsCount > 0)
+            followUps.Add("How much is earmarked for my goals?");
+        else
+            followUps.Add("How do I create a savings goal?");
+
+        followUps.Add("Explain the FD laddering strategy");
+        return followUps;
     }
 }

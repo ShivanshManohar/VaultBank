@@ -109,6 +109,12 @@ public class WealthJournalSnapshotResponse
     public DateTime GeneratedAt { get; set; }
 }
 
+public class ConversationTurn
+{
+    public string Role { get; set; } = "user";   // "user" or "model"
+    public string Content { get; set; } = string.Empty;
+}
+
 public class AiChatRequest
 {
     [Required]
@@ -118,6 +124,9 @@ public class AiChatRequest
     public string ActiveRoute { get; set; } = "/dashboard";
 
     public string? ActiveEntityId { get; set; }
+
+    /// <summary>Conversation history for multi-turn context (max 10 turns, oldest first)</summary>
+    public List<ConversationTurn> History { get; set; } = new();
 }
 
 public class AiChatResponse

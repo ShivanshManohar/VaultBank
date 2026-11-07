@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Sparkles, MessageSquare, X, Send, ArrowRight, ShieldAlert, Bot, Calendar, ExternalLink } from 'lucide-react';
 import { api } from '../../services/apiClient';
 import { AiChatResponse } from '../../types';
@@ -71,10 +71,19 @@ export const VaultAiDrawer: React.FC<VaultAiDrawerProps> = ({ currentTab, onNavi
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: 'ai',
-      text: 'Good day, Alex. I am **VAULT AI**, your private wealth intelligence co-pilot.\n\nI am synchronized with your **₹4,10,000** private reserve portfolio. You have 2 active term deposits maturing in 2027 and ₹1,60,000 available liquidity. How may I assist your financial journey today?',
+      text: 'Good day. I am **VAULT AI**, your private wealth intelligence co-pilot.\n\nI have read-only access to your authenticated portfolio — balances, active term deposits, savings goals, and maturity projections. Ask me anything about your financial position.\n\nHow may I assist your wealth journey today?',
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
+
+  // Conversation history for multi-turn context (sent to backend, capped at 10 turns)
+  const [conversationHistory, setConversationHistory] = useState<Array<{ role: string; content: string }>>([]);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to bottom on new message
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleSend = async (textToSend?: string) => {
     const prompt = (textToSend || input).trim();
@@ -93,6 +102,7 @@ export const VaultAiDrawer: React.FC<VaultAiDrawerProps> = ({ currentTab, onNavi
       const response = await api.post<AiChatResponse>('/ai/chat', {
         prompt,
         activeRoute: `/${currentTab}`,
+        history: conversationHistory.slice(-10), // Send last 10 turns for context
       });
 
       const aiMsg: Message = {
@@ -103,6 +113,13 @@ export const VaultAiDrawer: React.FC<VaultAiDrawerProps> = ({ currentTab, onNavi
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, aiMsg]);
+
+      // Update conversation history for multi-turn context
+      setConversationHistory((prev) => [
+        ...prev,
+        { role: 'user', content: prompt },
+        { role: 'model', content: response.reply },
+      ]);
 
       if (response.followUpSuggestions && response.followUpSuggestions.length > 0) {
         setPromptSuggestions(response.followUpSuggestions);
@@ -206,6 +223,7 @@ export const VaultAiDrawer: React.FC<VaultAiDrawerProps> = ({ currentTab, onNavi
                 <span>VAULT AI synthesizing authenticated portfolio data...</span>
               </div>
             )}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Dynamic Suggested Prompts Carousel */}
