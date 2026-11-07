@@ -1,17 +1,32 @@
 # VaultBank 🏦
-### Digital Savings & Fixed Deposit Management Portal
+### AI-Powered Digital Banking & Personal Wealth Intelligence Platform
 
-VaultBank is a digital banking web application that enables customers to manage multiple savings accounts, perform deposits and withdrawals, create fixed deposits, and visualize their investment growth over time.
+> *"Beyond Banking. Into Wealth Intelligence."*
 
-The application is being developed using **ASP.NET Core Web API, React, TypeScript, and Microsoft SQL Server**, with an emphasis on banking domain knowledge, backend architecture, financial calculations, database management, and cloud deployment.
+VaultBank is an educational digital banking and personal wealth management platform. It combines a robust commercial banking core with dynamic investment simulators, virtual goal earmarks, and **VAULT AI** — a context-aware financial intelligence co-pilot powered by Google Gemini.
 
-> **Project status:** Initial planning and requirement analysis  
-> **Development approach:** Learn by doing — incremental implementation  
-> **Deployment target:** AWS
+The application is engineered with an emphasis on banking domain fidelity, authoritative financial calculation engines, relational transaction consistency, and a private banking aesthetic (**Obsidian Black & Champagne Gold**).
+
+> **Project status:** Phase 0 & Phase 1 — Architecture Scaffolding & Core Foundation  
+> **Development approach:** Learn by doing — disciplined, incremental implementation  
+> **Deployment target:** AWS (Local-first verification with production readiness)
 
 ---
 
-## 1. Project Objectives
+## 1. Documentation Index
+
+Comprehensive engineering and design specifications are maintained in the [`docs/`](./docs) directory:
+- [Requirements & Domain Invariants](./docs/REQUIREMENTS.md)
+- [System Architecture & Layered Monolith](./docs/ARCHITECTURE.md)
+- [Technical Architecture Decisions (ADRs)](./docs/TECHNICAL-DECISIONS.md)
+- [Relational Database Design & SQL Queries](./docs/DATABASE-DESIGN.md)
+- [RESTful API Specifications](./docs/API-DOCUMENTATION.md)
+- [VAULT AI Architecture & Controlled Tool Calling](./docs/AI-ARCHITECTURE.md)
+- [Demo Guide & Evaluator Walkthrough](./docs/DEMO-GUIDE.md)
+
+---
+
+## 2. Project Objectives
 
 The primary objective of VaultBank is to simulate essential digital banking operations while demonstrating practical software engineering concepts.
 
@@ -19,100 +34,130 @@ The project focuses on:
 
 - Building RESTful APIs using ASP.NET Core.
 - Developing an interactive banking interface using React and TypeScript.
-- Implementing financial calculations and banking business rules.
+- Implementing financial calculations and banking business rules using high-precision arithmetic (`decimal`).
 - Managing relational data using SQL Server and Entity Framework Core.
-- Implementing authentication and role-based authorization.
-- Automating interest accrual and FD maturity processing.
+- Implementing authentication and role-based authorization (Customer vs. Admin).
+- Automating interest accrual and FD maturity processing with idempotent background workers.
 - Generating customer-wise and bank-level financial reports.
-- Writing unit tests for critical business logic.
+- Integrating Gemini AI (`gemini-2.5-flash-lite`) via a secure, read-only tool calling pattern.
+- Writing unit tests for critical business logic using xUnit.
 - Deploying the application on AWS while monitoring cloud costs.
 
-## 2. Key Features
+---
 
-### A. Customer Authentication
-- Customer registration and login.
-- JWT-based authentication.
-- Role-based authorization for customers and administrators.
+## 3. Key Feature Pillars
 
-### B. Savings Account Management
-- Multiple savings accounts per customer.
-- Savings account dashboard.
-- Display account balances and account information.
-- Deposit money into savings accounts.
-- Withdraw money with sufficient-balance validation.
-- Maintain a detailed transaction history.
-- Record every successful financial transaction.
+### Pillar A: Banking Core (Foundation)
+- **Customer Authentication & RBAC:**
+  - Secure customer registration and login.
+  - JWT-based authentication with role-based access for customers and administrators.
+  - Secure password hashing and token validation.
+- **Savings Account Management:**
+  - Multiple savings accounts per customer.
+  - Savings account dashboard displaying balances and account details.
+  - Simulated money deposit and withdrawal flows with strict balance validation.
+  - Maintain an auditable, immutable transaction history.
+  - Atomic ledger balance updates and transaction logging.
+- **Fixed Deposit Management:**
+  - Open fixed deposits specifying: principal, tenure, annual interest rate, and compounding frequency.
+  - Authoritative calculation of maturity dates and maturity values using compound interest.
+  - Display active, matured, and closed FDs.
+  - Premature withdrawals subject to administrator-configured penalty policies.
 
-### C. Fixed Deposit Management
-- Create fixed deposits by specifying:
-  - Principal amount.
-  - Investment tenure.
-  - Applicable annual interest rate.
-  - Compounding frequency.
-- Automatically calculate FD maturity dates.
-- Calculate maturity values using compound interest.
-- Display active, matured, and prematurely withdrawn FDs.
-- Support premature withdrawals with configurable administrative penalties.
+### Pillar B: Wealth Growth & Visualization
+- **Signature Feature — FD Growth Simulator:**
+  - Living investment growth curve dynamically tracking principal growth to maturity.
+  - Selectable tenure horizons: 1, 2, 3, 4, 5, 10, and 15 years.
+  - Interactive parameter inputs: investment amount, tenure, product rate, and compounding frequency.
+  - Real-time breakdown of principal versus interest earned.
+  - Shared authoritative calculation engine across simulator and contract booking.
+- **What-If Scenario Simulator:**
+  - Compare multiple investment scenarios (e.g. ₹50k for 2 yrs @ 6.5% vs. ₹50k for 5 yrs @ 7.0%).
+  - Superimpose multiple growth curves on a unified visualization.
+  - Tradeoff analysis across tenure, yield, and liquidity.
+- **FD Ladder Strategy Builder:**
+  - Partition lump-sum savings into staggered multi-tenure tranches.
+  - Visual timeline of upcoming maturities ensuring periodic liquidity.
+  - Strict allocation validation (tranches must not exceed selected investment amount).
+- **Savings Goals (Virtual Earmarks):**
+  - Create personal savings goals (Emergency Fund, Travel, Education).
+  - Virtual earmark accounting: allocations reserve available balance without inflating total bank balance or creating artificial ledger entries.
+- **Maturity Timeline:**
+  - Chronological financial milestone calendar visualizing upcoming FD payouts and goal target dates.
 
-### D. Interactive FD Growth Simulator
-An interactive investment visualization feature that allows customers to understand how their fixed deposits may grow over different investment periods.
+### Pillar C: Wealth Intelligence & AI
+- **VAULT AI Personal Wealth Assistant:**
+  - Powered by Google Gemini (`gemini-2.5-flash-lite`).
+  - Tri-modal co-pilot: Navigation Assistant, Banking Knowledge Assistant, and Personal Wealth Companion.
+  - Controlled read-only tool execution allowlist with authenticated customer context.
+  - Strictly non-transactional: directs users to confirmed UI workflows for any financial mutation.
+  - Independent fallback: banking core continues functioning if AI services are unavailable.
+- **Rule-Based Financial Intelligence:**
+  - Transaction categorization (Food, Shopping, Travel, Entertainment, Education, Utilities, Transfers).
+  - Monthly financial pulse (deposits, withdrawals, net savings rate, category trends).
+  - Anomaly detection alerts for unusual withdrawal spikes or high-frequency activity.
+- **Wealth Journal:**
+  - Historical monthly snapshots of opening/closing savings, accrued interest, and savings rates.
+- **External Public Financial Data:**
+  - Informational macroeconomic indicators (RBI policy repo rate, inflation) with caching, update timestamps, and source attribution.
 
-**How it works:**
-- Customer enters an investment amount and applicable interest rate.
-- The application dynamically generates an investment growth graph.
-- Customers can compare projected returns across different tenures, such as 1, 2, 3, 5, 10, and 15 years.
-- Display principal, projected interest, and estimated maturity value.
-- Update the graph whenever the customer changes the investment parameters.
+### Pillar D: Administration & Background Automation
+- **Administrator Dashboard:**
+  - View all registered customers, savings liabilities, and outstanding FD principal.
+  - Configure bank policies: interest rates, tenure tiers, and premature withdrawal penalties.
+  - Idempotent manual interest accrual and maturity settlement triggers.
+  - Audit logs and system-level reporting.
 
-The simulator is intended to help customers make informed investment decisions through transparent financial projections.
+---
 
-### E. Interest Accrual and Maturity Processing
-- Calculate interest accrued on eligible fixed deposits.
-- Support manual interest processing through the administrator panel.
-- Support automated processing through scheduled background jobs.
-- Process FD maturity and credit eligible maturity proceeds to the associated savings account.
-- Maintain interest accrual and settlement records.
-- Prevent duplicate interest credits and maturity processing.
+## 4. Visual Identity — Obsidian & Champagne Gold
 
-### F. Administrator Dashboard
-- View all registered customers.
-- View customer savings accounts.
-- Monitor active and matured fixed deposits.
-- Configure premature withdrawal penalty policies.
-- Trigger interest processing manually.
-- View total savings deposits and outstanding FD principal.
-- Generate customer-wise deposit summaries.
-- Monitor overall banking activity.
+VaultBank adopts an understated luxury aesthetic inspired by private banking and high-end wealth intelligence platforms:
 
-## 3. Technology Stack
+| Color | Hex | Purpose |
+|---|---|---|
+| **Obsidian Black** | `#171717` | Primary dark backgrounds |
+| **Warm Ivory** | `#E8DFCF` | Primary high-contrast light typography |
+| **Champagne Gold** | `#C5A46D` | Restrained accents, milestones, active highlights |
+| **Charcoal** | `#292929` | Secondary cards and elevated surfaces |
+| **Muted Stone** | `#77736B` | Secondary text, meta tags, and subtitles |
+| **Pure White** | `#FFFFFF` | Clean contrast elements |
+| **Success Green** | `#477A60` | Positive yields, deposits, completed goals |
+| **Burgundy** | `#873F4B` | Penalties, withdrawals, critical alerts |
+
+---
+
+## 5. Technology Stack
 
 | Layer | Technology |
 |---|---|
-| Frontend | React |
-| Programming Language | TypeScript |
-| Backend | C# |
-| Backend Framework | ASP.NET Core Web API |
+| Frontend | React (TypeScript, Vite) |
+| Styling & Design | Custom CSS Tokens / Tailwind (Obsidian & Gold palette) |
+| Backend | ASP.NET Core 8 Web API (C#) |
 | ORM | Entity Framework Core |
-| Database | Microsoft SQL Server |
-| Authentication | JWT |
+| Database | Microsoft SQL Server (with SQLite local-dev & test provider) |
+| AI Integration | Google Gemini API (`gemini-2.5-flash-lite`) |
+| Authentication | JWT (HMAC-SHA256) with Role-Based Access |
 | Testing | xUnit |
 | Version Control | Git and GitHub |
 | Cloud Deployment | Amazon Web Services (AWS) |
 
-## 4. Proposed System Architecture
+---
 
-VaultBank will initially follow a layered monolithic architecture.
+## 6. Proposed System Architecture
+
+VaultBank follows a clean layered monolithic architecture:
 
 ```text
                  CUSTOMER / ADMIN
                         |
                         v
-              REACT + TYPESCRIPT
-                 (Frontend UI)
+              REACT + TYPESCRIPT (Vite)
+             (Obsidian & Gold Design)
                         |
-                        | REST API / JSON
+                        | REST API / JSON (JWT Bearer)
                         v
-              ASP.NET CORE WEB API
+              ASP.NET CORE 8 WEB API
                         |
           +-------------+-------------+
           |             |             |
@@ -120,7 +165,7 @@ VaultBank will initially follow a layered monolithic architecture.
       Controllers    Services      DTOs
           |             |
           |             v
-          |       Business Logic
+          |       Business Logic & Calculation Engine
           |             |
           +-------------+
                         |
@@ -128,165 +173,86 @@ VaultBank will initially follow a layered monolithic architecture.
               ENTITY FRAMEWORK CORE
                         |
                         v
-                 SQL SERVER
+        SQL SERVER (Production / AWS) & SQLite (Local)
                         |
           +-------------+-------------+
           |             |             |
           v             v             v
         Users        Accounts     Fixed Deposits
-                                    |
-                                    v
-                              Transactions
-                                    |
-                                    v
-                              Interest Records
+          |             |             |
+          v             v             v
+      Customers   Transactions   Interest Accruals
+          |                           |
+          +-------------+-------------+
+                        |
+                        v
+          Goals, Snapshots, Policies & Logs
 ```
 
-### Backend Design Principles
+### Backend Design Principles:
+- **Controllers:** Handle HTTP routing, JWT claim inspection, and request validation.
+- **Services:** Implement core banking rules, transaction atomicity, and financial math.
+- **Entities:** Strongly-typed EF Core relational entity definitions with `DECIMAL(18,2)` precision.
+- **DTOs:** Explicit request/response contracts isolating internal database models.
+- **Background Processing:** Hosted background worker executing idempotent daily interest calculations and maturity settlements.
 
-- **Controllers:** Handle HTTP requests and responses.
-- **Services:** Implement banking operations and business rules.
-- **Entities:** Represent database tables and relationships.
-- **DTOs:** Define request and response data structures.
-- **Entity Framework Core:** Handle database operations.
-- **Background Processing:** Execute scheduled interest accrual and maturity operations.
+---
 
-## 5. Core Banking Calculations
+## 7. Core Banking Calculations
 
-### Compound Interest
+### Compound Interest Formula
+The calculation engine standardizes on quarterly compounding ($n=4$):
 
-The application will initially use the compound interest formula:
-
-\[
-A=P\left(1+\frac{r}{n}\right)^{nt}
-\]
+$$A = P\left(1 + \frac{r}{n}\right)^{nt}$$
 
 Where:
+- $P$ = Principal amount (`decimal`)
+- $r$ = Annual interest rate in decimal form (e.g. $0.07$ for $7.0\%$)
+- $n$ = Number of compounding periods per year ($4$ for quarterly)
+- $t$ = Investment tenure in years
+- $A$ = Projected maturity value
 
-- P = Principal amount.
-- r = Annual interest rate in decimal form.
-- n = Number of compounding periods per year.
-- t = Investment tenure in years.
-- A = Maturity amount.
+### Premature Withdrawal Penalty
+Adjusted interest is computed using the penalty percentage configured in bank policy at FD inception:
+$$\text{Adjusted Rate} = \max(0, \text{Contract Rate} - \text{Penalty Rate})$$
+Net payable proceeds are credited back to the linked savings account atomically.
 
-### Premature Withdrawal
+---
 
-The application will calculate adjusted interest using the applicable premature withdrawal policy configured by the administrator.
+## 8. Relational Database Design
 
-### Banking Validations
+The database schema encompasses:
+- `Users` & `Customers`: Authentication credentials, roles, and profile information.
+- `SavingsAccounts` & `Transactions`: Balances, available balances, and immutable transaction ledger.
+- `FixedDeposits` & `InterestAccruals`: FD contracts, lifecycle states, and periodic interest accrual records.
+- `SavingsGoals` & `GoalAllocations`: Virtual goal earmarks with strict balance invariant enforcement.
+- `WealthSnapshots`: Historical monthly snapshots for the Wealth Journal.
+- `BankPolicies` & `FDProducts`: Configurable product tiers and premature liquidation policies.
+- `FinancialAlerts` & `ProcessingLogs`: Rule-based anomaly alerts and audit execution logs.
+- `ExternalDataCache`: Macroeconomic data cache with timestamps and source attribution.
 
-- Withdrawal amount must not exceed the available account balance.
-- Investment amount must satisfy configured minimum FD limits.
-- Only eligible FDs can be prematurely withdrawn.
-- Maturity processing must not execute twice for the same FD.
-- Financial operations must maintain transaction consistency.
+---
 
-## 6. Initial Database Design
+## 9. Development Roadmap
 
-The proposed database will contain the following core entities:
+| Phase | Description | Status |
+|---|---|---|
+| **Phase 0** | Repository inspection, architecture design, and documentation | Complete |
+| **Phase 1** | Foundation setup: .NET backend, React frontend, EF Core scaffolding, Design tokens | In Progress |
+| **Phase 2** | Banking Core: Auth, Savings, Atomic Transactions, Fixed Deposit contracts | Pending |
+| **Phase 3** | Signature Visuals: Obsidian/Gold Landing Page, Dashboard, FD Growth Simulator | Pending |
+| **Phase 4** | Wealth Management: Goals (virtual earmarks), What-If Simulator, FD Ladder, Timeline | Pending |
+| **Phase 5** | AI & External Data: VAULT AI (`gemini-2.5-flash-lite`), Read-Only Tools, Macro indicators | Pending |
+| **Phase 6** | Intelligence & Automation: Wealth Journal, Idempotent background processing, Admin panel | Pending |
+| **Phase 7** | Quality & Deployment: xUnit test suite, Demo data seeding, AWS readiness | Pending |
 
-| Entity | Responsibility |
-|---|---|
-| Users | Authentication credentials and roles |
-| Customers | Customer profile information |
-| SavingsAccounts | Customer savings accounts and balances |
-| Transactions | Deposits, withdrawals and financial transaction records |
-| FixedDeposits | FD principal, tenure, interest rate and maturity details |
-| InterestAccruals | Interest calculation and credit records |
-| BankPolicies | Configurable banking policies and penalty settings |
+---
 
-The database will support one-to-many relationships between customers and savings accounts, customers and fixed deposits, and savings accounts and transactions.
+## 10. Project Disclaimer
 
-## 7. SQL Reporting Requirements
+VaultBank is an educational digital banking and wealth intelligence simulation developed for learning and demonstration purposes.
 
-The project will implement the following SQL operations:
-
-1. **FD Maturity Calculation:** Calculate maturity values using principal, interest rate, compounding frequency, and tenure.
-2. **Interest Accrual:** Calculate interest for eligible fixed deposits.
-3. **Customer-wise Deposit Summary:** Generate customer-level savings and FD deposit summaries using SQL JOINs, GROUP BY, and aggregate functions.
-
-## 8. Development Roadmap
-
-The initial implementation is planned across a 14-day development cycle.
-
-| Phase | Activities |
-|---|---|
-| Day 1 | Requirement analysis, domain understanding and project initialization |
-| Days 2–3 | C# fundamentals, ASP.NET Core setup, SQL Server and EF Core |
-| Day 4 | Authentication and JWT implementation |
-| Days 5–6 | Savings accounts, deposits, withdrawals and transaction logging |
-| Days 7–8 | FD creation, calculations and premature withdrawal |
-| Day 9 | Interest accrual and maturity processing |
-| Day 10 | Administrator APIs and SQL reporting |
-| Days 11–12 | React frontend and customer workflows |
-| Day 13 | Admin UI, unit testing and integration |
-| Day 14 | AWS deployment, documentation and demonstration |
-
-The roadmap is an initial target and may be adjusted based on implementation complexity.
-
-## 9. Testing Strategy
-
-The application will include basic unit tests and integration checks covering:
-
-- Savings account balance calculations.
-- Deposit and withdrawal validations.
-- Insufficient balance scenarios.
-- FD maturity calculations.
-- Interest accrual calculations.
-- Premature withdrawal penalty calculations.
-- Duplicate maturity processing prevention.
-- Authentication and authorization.
-- Admin reporting calculations.
-
-## 10. Deployment Strategy
-
-The application will initially be developed and tested locally.
-
-The deployment phase will explore suitable AWS services, prioritizing available free-tier or low-cost options.
-
-Deployment considerations include:
-
-- Backend hosting.
-- Frontend hosting.
-- SQL Server database hosting.
-- Environment variable management.
-- Secure configuration of credentials and JWT secrets.
-- Git-based source control.
-- AWS billing and resource monitoring.
-
-Actual AWS service selection will depend on free-tier eligibility, availability, and deployment requirements.
-
-## 11. Future Enhancements
-
-Potential improvements beyond the initial MVP:
-
-- Downloadable account statements.
-- Email notifications for FD maturity.
-- Advanced financial analytics.
-- Customer transaction filtering and search.
-- Enhanced investment comparison tools.
-- Additional banking products.
-
-## 12. Learning Objectives
-
-This project is also a practical learning exercise focused on:
-
-- C# and object-oriented programming.
-- ASP.NET Core Web API development.
-- React and TypeScript.
-- SQL Server and relational database design.
-- Entity Framework Core.
-- RESTful API architecture.
-- Authentication and authorization.
-- Financial calculations and banking workflows.
-- Unit testing and debugging.
-- AWS deployment and cloud infrastructure.
-
-## 13. Project Disclaimer
-
-VaultBank is an educational banking simulation developed for learning and demonstration purposes.
-
-It does not process real financial transactions, hold actual customer deposits, or represent a licensed banking institution. All financial calculations and banking policies are illustrative and should not be treated as actual banking or investment advice.
+It does not process real financial transactions, hold actual customer deposits, or represent a licensed banking institution. All financial calculations, rates, and policies are illustrative and should not be treated as actual banking or investment advice.
 
 ---
 
