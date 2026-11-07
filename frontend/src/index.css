@@ -3,6 +3,16 @@
 @tailwind utilities;
 
 :root {
+  /* RGB triplets for Tailwind dynamic opacity & gradients */
+  --color-obsidian-rgb: 23 23 23;
+  --color-charcoal-rgb: 36 36 36;
+  --color-surface-rgb: 45 45 45;
+  --color-ivory-rgb: 232 223 207;
+  --color-champagne-rgb: 197 164 109;
+  --color-stone-rgb: 160 156 148;
+  --color-success-rgb: 71 122 96;
+  --color-burgundy-rgb: 135 63 75;
+
   --color-obsidian: #171717;
   --color-charcoal: #242424;
   --color-surface-elevated: #2d2d2d;
@@ -11,36 +21,54 @@
   --color-champagne: #C5A46D;
   --color-champagne-light: #DFC396;
   --color-champagne-dark: #997D4E;
-  --color-stone: #77736B;
-  --color-stone-light: #9E9A92;
+  --color-stone: #A09C94;
+  --color-stone-light: #C0BCB4;
   --color-success: #477A60;
   --color-burgundy: #873F4B;
   --color-white: #FFFFFF;
   --border-gold: rgba(197, 164, 109, 0.22);
   --border-gold-hover: rgba(197, 164, 109, 0.5);
-  --card-bg: rgba(36, 36, 36, 0.78);
+  --card-bg: rgba(36, 36, 36, 0.85);
   --card-solid: #242424;
+  --card-subtle: #2A2A2A;
+  --input-bg: #1A1A1A;
+  --progress-track: rgba(255, 255, 255, 0.1);
+  --modal-backdrop: rgba(12, 12, 12, 0.75);
   --sub-bar-bg: #111111;
 }
 
 [data-theme="light"] {
+  /* RGB triplets for Tailwind in Light Mode (Warm Alabaster & Cream) */
+  --color-obsidian-rgb: 250 247 242;       /* Alabaster Warm White Canvas */
+  --color-charcoal-rgb: 243 238 228;       /* Warm Inset Card Surface (#F3EEE4, distinct from pure white) */
+  --color-surface-rgb: 236 230 218;        /* Soft elevated box */
+  --color-ivory-rgb: 23 23 23;             /* Deep readable obsidian text */
+  --color-champagne-rgb: 158 122 61;       /* Deep rich bronze gold with high contrast */
+  --color-stone-rgb: 102 96 86;            /* Crisp dark stone grey (4.5:1+ contrast) */
+  --color-success-rgb: 38 108 68;          /* Deep emerald green */
+  --color-burgundy-rgb: 155 40 58;         /* Deep crimson burgundy */
+
   --color-obsidian: #FAF7F2;
-  --color-charcoal: #FFFFFF;
-  --color-surface-elevated: #F1ECE1;
+  --color-charcoal: #F3EEE4;
+  --color-surface-elevated: #ECE6DA;
   --color-ivory: #171717;
   --color-ivory-light: #1A1A1A;
   --color-champagne: #9E7A3D;
   --color-champagne-light: #B89354;
   --color-champagne-dark: #7A5B26;
-  --color-stone: #6B655B;
+  --color-stone: #666056;
   --color-stone-light: #4A453C;
-  --color-success: #286846;
+  --color-success: #266C44;
   --color-burgundy: #9B283A;
   --color-white: #171717;
   --border-gold: rgba(158, 122, 61, 0.28);
   --border-gold-hover: rgba(158, 122, 61, 0.65);
-  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-bg: #FFFFFF;
   --card-solid: #FFFFFF;
+  --card-subtle: #F7F4EE;
+  --input-bg: #FAF7F2;
+  --progress-track: rgba(102, 96, 86, 0.18);
+  --modal-backdrop: rgba(23, 23, 23, 0.55);
   --sub-bar-bg: #EFE9DE;
 }
 
@@ -73,32 +101,17 @@ h1, h2, h3, .font-serif {
   border-color: var(--border-gold-hover);
 }
 
-.bg-charcoal {
+/* Form controls & Options */
+select option {
   background-color: var(--card-solid);
-}
-
-.bg-surface-elevated {
-  background-color: var(--color-surface-elevated);
-}
-
-.text-champagne {
-  color: var(--color-champagne);
-}
-
-.text-ivory {
   color: var(--color-ivory);
 }
 
-.text-stone-muted {
-  color: var(--color-stone);
-}
-
-.text-success {
-  color: var(--color-success);
-}
-
-.text-burgundy {
-  color: var(--color-burgundy);
+/* Modal Overlay */
+.modal-overlay {
+  background-color: var(--modal-backdrop);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 /* Luxury Glass & Surface */
@@ -111,7 +124,9 @@ h1, h2, h3, .font-serif {
 }
 
 [data-theme="light"] .glass-panel {
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  background: #FFFFFF;
+  border-color: rgba(158, 122, 61, 0.24);
+  box-shadow: 0 4px 20px -2px rgba(80, 60, 30, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .glass-panel-hover {
@@ -139,8 +154,8 @@ h1, h2, h3, .font-serif {
 }
 
 [data-theme="light"] .btn-gold {
-  background: linear-gradient(135deg, #C5A46D 0%, #9E7A3D 100%);
-  color: #FFFFFF;
+  background: linear-gradient(135deg, #DFC396 0%, #C5A46D 50%, #997D4E 100%);
+  color: #171717;
 }
 
 .btn-gold:hover {

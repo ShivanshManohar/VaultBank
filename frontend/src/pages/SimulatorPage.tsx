@@ -111,7 +111,7 @@ export const SimulatorPage: React.FC<SimulatorPageProps> = ({ onBookFD }) => {
           <button
             onClick={() => setActiveTab('growth')}
             className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-semibold transition ${
-              activeTab === 'growth' ? 'bg-champagne text-obsidian shadow' : 'text-stone-muted hover:text-ivory'
+              activeTab === 'growth' ? 'bg-champagne text-[#171717] shadow' : 'text-stone-muted hover:text-ivory'
             }`}
           >
             <Sparkles className="w-3.5 h-3.5" />
@@ -120,7 +120,7 @@ export const SimulatorPage: React.FC<SimulatorPageProps> = ({ onBookFD }) => {
           <button
             onClick={() => setActiveTab('whatif')}
             className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-semibold transition ${
-              activeTab === 'whatif' ? 'bg-champagne text-obsidian shadow' : 'text-stone-muted hover:text-ivory'
+              activeTab === 'whatif' ? 'bg-champagne text-[#171717] shadow' : 'text-stone-muted hover:text-ivory'
             }`}
           >
             <Sliders className="w-3.5 h-3.5" />
@@ -129,7 +129,7 @@ export const SimulatorPage: React.FC<SimulatorPageProps> = ({ onBookFD }) => {
           <button
             onClick={() => setActiveTab('ladder')}
             className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg font-semibold transition ${
-              activeTab === 'ladder' ? 'bg-champagne text-obsidian shadow' : 'text-stone-muted hover:text-ivory'
+              activeTab === 'ladder' ? 'bg-champagne text-[#171717] shadow' : 'text-stone-muted hover:text-ivory'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -334,7 +334,7 @@ export const SimulatorPage: React.FC<SimulatorPageProps> = ({ onBookFD }) => {
             {compareData.results.map((sc: ScenarioCompareResultItem, i: number) => (
               <div key={i} className="glass-panel p-6 rounded-2xl space-y-4 relative">
                 {sc.name === compareData.bestReturnScenario && (
-                  <span className="absolute top-4 right-4 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-champagne text-obsidian">
+                  <span className="absolute top-4 right-4 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-champagne text-[#171717]">
                     Highest Nominal Gain
                   </span>
                 )}

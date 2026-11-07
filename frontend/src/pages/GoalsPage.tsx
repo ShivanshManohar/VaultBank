@@ -140,7 +140,7 @@ export const GoalsPage: React.FC = () => {
                   of ₹{goal.targetAmount.toLocaleString('en-IN')}
                 </span>
               </div>
-              <div className="w-full bg-obsidian h-2 rounded-full overflow-hidden">
+              <div className="w-full bg-stone-muted/20 h-2 rounded-full overflow-hidden">
                 <div
                   className="bg-gradient-to-r from-champagne-light to-champagne h-full rounded-full transition-all duration-500"
                   style={{ width: `${goal.progressPercentage}%` }}
@@ -188,8 +188,8 @@ export const GoalsPage: React.FC = () => {
 
       {/* Allocate Funds Modal */}
       {allocateGoal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/80 backdrop-blur-sm p-4">
-          <div className="glass-panel w-full max-w-md p-6 rounded-2xl border-gold-bright space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center modal-overlay p-4">
+          <div className="glass-panel w-full max-w-md p-6 rounded-2xl border-gold-bright space-y-4 shadow-2xl">
             <h3 className="text-xl font-serif font-bold text-ivory">Allocate Virtual Funds</h3>
             <p className="text-xs text-stone-muted">
               Reserving funds for &ldquo;{allocateGoal.title}&rdquo;. Available balance will decrease; actual bank balance remains untouched.
@@ -212,7 +212,7 @@ export const GoalsPage: React.FC = () => {
                   value={allocateAmount}
                   onChange={(e) => setAllocateAmount(e.target.value)}
                   placeholder="e.g. 10000"
-                  className="w-full bg-obsidian border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                  className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
                 />
               </div>
 
@@ -238,8 +238,8 @@ export const GoalsPage: React.FC = () => {
 
       {/* Create Goal Modal */}
       {createOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/80 backdrop-blur-sm p-4">
-          <div className="glass-panel w-full max-w-md p-6 rounded-2xl border-gold-bright space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center modal-overlay p-4">
+          <div className="glass-panel w-full max-w-md p-6 rounded-2xl border-gold-bright space-y-4 shadow-2xl">
             <h3 className="text-xl font-serif font-bold text-ivory">Create Savings Goal</h3>
             <p className="text-xs text-stone-muted">Establish a dedicated virtual reserve target.</p>
 
@@ -252,7 +252,7 @@ export const GoalsPage: React.FC = () => {
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="e.g. Luxury Travel Fund"
-                  className="w-full bg-obsidian border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                  className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
                 />
               </div>
 
@@ -261,7 +261,7 @@ export const GoalsPage: React.FC = () => {
                 <select
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}
-                  className="w-full bg-obsidian border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                  className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
                 >
                   <option value="Emergency Fund">Emergency Fund</option>
                   <option value="Travel">Travel</option>
@@ -279,7 +279,7 @@ export const GoalsPage: React.FC = () => {
                   min="5000"
                   value={newTarget}
                   onChange={(e) => setNewTarget(Number(e.target.value))}
-                  className="w-full bg-obsidian border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                  className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
                 />
               </div>
 
@@ -290,7 +290,7 @@ export const GoalsPage: React.FC = () => {
                   min="0"
                   value={newInitialAlloc}
                   onChange={(e) => setNewInitialAlloc(Number(e.target.value))}
-                  className="w-full bg-obsidian border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                  className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
                 />
               </div>
 

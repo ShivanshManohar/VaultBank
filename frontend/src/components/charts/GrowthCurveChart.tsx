@@ -180,7 +180,7 @@ export const GrowthCurveChart: React.FC<GrowthCurveChartProps> = ({
                   cy={cy}
                   r={isHovered ? 7 : 4.5}
                   fill={isHovered ? '#FFFFFF' : '#C5A46D'}
-                  stroke="#171717"
+                  stroke="var(--card-solid, #171717)"
                   strokeWidth="2.5"
                   className="transition-all duration-150 cursor-pointer"
                 />

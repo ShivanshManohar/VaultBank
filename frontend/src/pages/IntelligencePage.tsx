@@ -110,7 +110,7 @@ export const IntelligencePage: React.FC = () => {
                     ₹{item.amount.toLocaleString('en-IN')} ({item.percentage}%)
                   </span>
                 </div>
-                <div className="w-full bg-obsidian h-2 rounded-full overflow-hidden">
+                <div className="w-full bg-stone-muted/20 h-2 rounded-full overflow-hidden">
                   <div
                     className="bg-gradient-to-r from-champagne-light to-champagne h-full rounded-full transition-all duration-500"
                     style={{ width: `${item.percentage}%` }}

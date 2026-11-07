@@ -155,7 +155,7 @@ export const AccountsPage: React.FC<AccountsPageProps> = ({ onOpenDeposit }) => 
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
                   selectedCategory === cat
-                    ? 'bg-champagne text-obsidian font-semibold'
+                    ? 'bg-champagne text-[#171717] font-semibold'
                     : 'bg-charcoal text-stone-muted hover:text-ivory'
                 }`}
               >
@@ -214,8 +214,8 @@ export const AccountsPage: React.FC<AccountsPageProps> = ({ onOpenDeposit }) => 
 
       {/* Withdraw Modal */}
       {withdrawModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/80 backdrop-blur-sm p-4">
-          <div className="glass-panel w-full max-w-md p-6 rounded-2xl border-gold-bright space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center modal-overlay p-4">
+          <div className="glass-panel w-full max-w-md p-6 rounded-2xl border-gold-bright space-y-4 shadow-2xl">
             <h3 className="text-xl font-serif font-bold text-ivory">Withdraw Funds</h3>
             <p className="text-xs text-stone-muted">
               Amount will be deducted from your primary reserve. Available balance validation enforced.
@@ -238,7 +238,7 @@ export const AccountsPage: React.FC<AccountsPageProps> = ({ onOpenDeposit }) => 
                   value={withdrawAmount}
                   onChange={(e) => setWithdrawAmount(e.target.value)}
                   placeholder="e.g. 15000"
-                  className="w-full bg-obsidian border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                  className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
                 />
               </div>
 
@@ -247,7 +247,7 @@ export const AccountsPage: React.FC<AccountsPageProps> = ({ onOpenDeposit }) => 
                 <select
                   value={withdrawCategory}
                   onChange={(e) => setWithdrawCategory(e.target.value)}
-                  className="w-full bg-obsidian border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                  className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
                 >
                   <option value="Shopping">Shopping</option>
                   <option value="Travel">Travel</option>
@@ -264,7 +264,7 @@ export const AccountsPage: React.FC<AccountsPageProps> = ({ onOpenDeposit }) => 
                   value={withdrawDescription}
                   onChange={(e) => setWithdrawDescription(e.target.value)}
                   placeholder="e.g. Technology Equipment Purchase"
-                  className="w-full bg-obsidian border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                  className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
                 />
               </div>
 

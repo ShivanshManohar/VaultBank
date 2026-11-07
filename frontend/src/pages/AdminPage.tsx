@@ -43,7 +43,7 @@ export const AdminPage: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="text-xs uppercase tracking-widest text-champagne font-semibold">Administration</span>
-            <span className="px-1.5 py-0.5 rounded text-[10px] bg-champagne text-obsidian font-bold">Marcus Sterling</span>
+            <span className="px-1.5 py-0.5 rounded text-[10px] bg-champagne text-[#171717] font-bold">Marcus Sterling</span>
           </div>
           <h1 className="text-4xl font-serif font-bold text-ivory mt-1">Bank Operations & Policy Console</h1>
           <p className="text-sm text-stone-muted mt-1">Institutional liability monitoring, contract policy parameters, and manual batch jobs.</p>
@@ -116,7 +116,7 @@ export const AdminPage: React.FC = () => {
                 max="5.0"
                 value={penaltyRate}
                 onChange={(e) => setPenaltyRate(e.target.value)}
-                className="w-full bg-obsidian border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
               />
               <p className="text-[11px] text-stone-muted mt-1">
                 Deducted from contractual annual rate for elapsed duration if customer liquidates before maturity date.

@@ -109,8 +109,8 @@ export function App() {
 
       {/* Global Quick Deposit Modal */}
       {depositOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/80 backdrop-blur-sm p-4">
-          <div className="glass-panel w-full max-w-md p-6 rounded-2xl border-gold-bright space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center modal-overlay p-4">
+          <div className="glass-panel w-full max-w-md p-6 rounded-2xl border-gold-bright space-y-4 shadow-2xl">
             <h3 className="text-xl font-serif font-bold text-ivory">Deposit Simulated Funds</h3>
             <p className="text-xs text-stone-muted">
               Funds will be atomically credited to your Primary Reserve Account (VB-SAV-88029144).
@@ -132,7 +132,7 @@ export function App() {
                     value={depositAmount}
                     onChange={(e) => setDepositAmount(e.target.value)}
                     placeholder="e.g. 50000"
-                    className="w-full bg-[var(--color-obsidian)] border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                    className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
                   />
                 </div>
 
@@ -141,7 +141,7 @@ export function App() {
                   <select
                     value={depositCategory}
                     onChange={(e) => setDepositCategory(e.target.value)}
-                    className="w-full bg-[var(--color-obsidian)] border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                    className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
                   >
                     <option value="Salary">Executive Salary / Advisory</option>
                     <option value="Dividends">Dividends / Yield</option>
@@ -157,7 +157,7 @@ export function App() {
                     value={depositDesc}
                     onChange={(e) => setDepositDesc(e.target.value)}
                     placeholder="e.g. Quarterly Advisory Fee Remuneration"
-                    className="w-full bg-[var(--color-obsidian)] border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                    className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
                   />
                 </div>
 

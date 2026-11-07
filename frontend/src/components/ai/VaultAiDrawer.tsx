@@ -129,7 +129,7 @@ export const VaultAiDrawer: React.FC<VaultAiDrawerProps> = ({ currentTab, onNavi
           onClick={() => setIsOpen(true)}
           className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-full bg-charcoal border border-gold-bright shadow-2xl shadow-champagne/20 hover:scale-105 transition-all duration-200 group"
         >
-          <div className="w-8 h-8 rounded-full bg-champagne/20 flex items-center justify-center text-champagne group-hover:bg-champagne group-hover:text-obsidian transition-colors">
+          <div className="w-8 h-8 rounded-full bg-champagne/20 flex items-center justify-center text-champagne group-hover:bg-champagne group-hover:text-[#171717] transition-colors">
             <Sparkles className="w-4 h-4" />
           </div>
           <span className="text-sm font-semibold text-ivory tracking-wide">
@@ -151,7 +151,7 @@ export const VaultAiDrawer: React.FC<VaultAiDrawerProps> = ({ currentTab, onNavi
               <div>
                 <h3 className="text-base font-serif font-bold text-ivory tracking-wide flex items-center gap-1.5">
                   VAULT <span className="text-champagne">AI</span>
-                  <span className="text-[10px] font-sans px-1.5 py-0.5 rounded bg-obsidian border border-gold-subtle text-champagne">
+                  <span className="text-[10px] font-sans px-1.5 py-0.5 rounded bg-surface-elevated border border-gold-subtle text-champagne">
                     Wealth Co-Pilot
                   </span>
                 </h3>
@@ -187,7 +187,7 @@ export const VaultAiDrawer: React.FC<VaultAiDrawerProps> = ({ currentTab, onNavi
                         const target = m.route!.replace('/', '');
                         onNavigate(target === '' ? 'dashboard' : target);
                       }}
-                      className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-champagne/15 border border-gold-subtle text-xs text-champagne font-semibold hover:bg-champagne hover:text-obsidian transition"
+                      className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-champagne/15 border border-gold-subtle text-xs text-champagne font-semibold hover:bg-champagne hover:text-[#171717] transition"
                     >
                       <span>{m.actionLabel || 'Navigate to View'}</span>
                       <ArrowRight className="w-3.5 h-3.5" />

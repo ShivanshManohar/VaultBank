@@ -145,7 +145,8 @@ export const FixedDepositsPage: React.FC<FixedDepositsPageProps> = ({
                   <span>Progress to Maturity</span>
                   <span className="text-champagne font-semibold">{fd.progressPercentage}%</span>
                 </div>
-                <div className="w-full bg-obsidian h-2 rounded-full overflow-hidden">
+                {/* Progress to Maturity */}
+                <div className="w-full bg-stone-muted/20 h-2 rounded-full overflow-hidden">
                   <div
                     className="bg-gradient-to-r from-champagne-light to-champagne h-full rounded-full transition-all duration-500"
                     style={{ width: `${fd.progressPercentage}%` }}
@@ -216,8 +217,8 @@ export const FixedDepositsPage: React.FC<FixedDepositsPageProps> = ({
 
       {/* Book New FD Modal */}
       {createModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/80 backdrop-blur-sm p-4">
-          <div className="glass-panel w-full max-w-lg p-6 rounded-2xl border-gold-bright space-y-5">
+        <div className="fixed inset-0 z-50 flex items-center justify-center modal-overlay p-4">
+          <div className="glass-panel w-full max-w-lg p-6 rounded-2xl border-gold-bright space-y-5 shadow-2xl">
             <h3 className="text-2xl font-serif font-bold text-ivory">Book Fixed Deposit</h3>
             <p className="text-xs text-stone-muted">
               Funds will be transferred atomically from your primary reserve account. Quarterly compounding applies.
@@ -239,7 +240,7 @@ export const FixedDepositsPage: React.FC<FixedDepositsPageProps> = ({
                   step="5000"
                   value={createPrincipal}
                   onChange={(e) => setCreatePrincipal(Number(e.target.value))}
-                  className="w-full bg-obsidian border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                  className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
                 />
               </div>
 
@@ -253,7 +254,7 @@ export const FixedDepositsPage: React.FC<FixedDepositsPageProps> = ({
                       setCreateTenure(m);
                       setCreateRate(m >= 60 ? 7.75 : m >= 36 ? 7.50 : m >= 24 ? 7.25 : 6.80);
                     }}
-                    className="w-full bg-obsidian border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
+                    className="w-full bg-charcoal border border-gold-subtle rounded-xl px-3.5 py-2.5 text-sm text-ivory focus:outline-none focus:border-champagne"
                   >
                     <option value={12}>12 Months (1 Year)</option>
                     <option value={24}>24 Months (2 Years)</option>
@@ -268,7 +269,7 @@ export const FixedDepositsPage: React.FC<FixedDepositsPageProps> = ({
                     type="text"
                     disabled
                     value={`${createRate}% Quarterly`}
-                    className="w-full bg-charcoal border border-gold-subtle/40 rounded-xl px-3.5 py-2.5 text-sm text-champagne font-semibold cursor-not-allowed"
+                    className="w-full bg-surface-elevated border border-gold-subtle/40 rounded-xl px-3.5 py-2.5 text-sm text-champagne font-semibold cursor-not-allowed"
                   />
                 </div>
               </div>
@@ -315,8 +316,8 @@ export const FixedDepositsPage: React.FC<FixedDepositsPageProps> = ({
 
       {/* Premature Liquidation Modal */}
       {liquidateFd && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian/85 backdrop-blur-sm p-4">
-          <div className="glass-panel w-full max-w-md p-6 rounded-2xl border-burgundy/60 space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center modal-overlay p-4">
+          <div className="glass-panel w-full max-w-md p-6 rounded-2xl border-burgundy/60 space-y-4 shadow-2xl">
             <div className="flex items-center gap-3 text-burgundy">
               <ShieldAlert className="w-6 h-6" />
               <h3 className="text-xl font-serif font-bold text-ivory">Premature Liquidation Preview</h3>
